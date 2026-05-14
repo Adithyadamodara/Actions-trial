@@ -3,21 +3,15 @@ pipeline {
 
     stages {
         
-        stage('Clone') {
+        stage('Build docker image') {
             steps {
-                echo 'Cloning Repository....'
+                sh 'docker build -t ci-demo-app .'
             }
         }
 
-        stage('Build') {
+        stage('Run container') {
             steps {
-                echo 'Building Application...'
-            }
-        }
-
-        stage('Run') {
-            steps {
-                sh 'python3 app.py'
+                sh 'docker run --rm ci-demo-app'
             }
         }
     }
